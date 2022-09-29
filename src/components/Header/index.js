@@ -13,7 +13,7 @@ class Header extends Component {
           { email }
         </p>
         <p
-          data-testid="currency-field"
+          data-testid="header-currency-field"
         >
           BRL
         </p>
