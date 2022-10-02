@@ -6,11 +6,11 @@ import { fetchCurrecy } from '../../redux/actions';
 
 class WalletForm extends Component {
   state = {
-    inputValue: '',
+    value: '',
     description: '',
-    currency: 'Moeda',
-    method: 'Método',
-    tag: 'Categoria',
+    currency: 'USD',
+    method: 'Dinheiro',
+    tag: 'Alimentação',
   };
 
   componentDidMount() {
@@ -24,9 +24,22 @@ class WalletForm extends Component {
     });
   };
 
+  saveButtonHandler = (event) => {
+    event.preventDefault();
+    const { expenses, createExpense } = this.props;
+    const data = { id: expenses.length, ...this.state };
+    createExpense(data);
+    this.setState({
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação' });
+  };
+
   render() {
     const {
-      inputValue,
+      value,
       description,
       currency,
       method,
@@ -37,21 +50,25 @@ class WalletForm extends Component {
 
     return (
       <section>
-        <form>
+        <form onSubmit={ this.saveButtonHandler }>
           <label htmlFor="inputValue">
             <input
+              type="number"
               data-testid="value-input"
-              id="inputValue"
+              id="value"
               onChange={ this.onInputChange }
-              value={ inputValue }
+              value={ value }
+              placeholder="Preço"
             />
           </label>
           <label htmlFor="description">
             <input
+              type="text"
               data-testid="description-input"
               id="description"
               onChange={ this.onInputChange }
               value={ description }
+              placeholder="Descrição"
             />
           </label>
           <label htmlFor="currency">
@@ -96,6 +113,12 @@ class WalletForm extends Component {
               <option>Saúde</option>
             </select>
           </label>
+
+          <button
+            type="submit"
+          >
+            Adicionar Despesa
+          </button>
         </form>
       </section>
     );
@@ -104,13 +127,19 @@ class WalletForm extends Component {
 
 WalletForm.propTypes = {
   currencies: PropTypes.func.isRequired,
-  currencyOptions: PropTypes.arrayOf.isRequired,
+  createExpense: PropTypes.func.isRequired,
+  currencyOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
-const mapStateToProps = (state) => ({ currencyOptions: state.wallet.currencies });
+const mapStateToProps = (state) => ({
+  currencyOptions: state.wallet.currencies,
+  expenses: state.wallet.expenses,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   currencies: () => dispatch(fetchCurrecy()),
+  createExpense: (data) => dispatch(fetchCurrecy(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
