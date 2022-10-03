@@ -61,6 +61,7 @@ class Login extends React.Component {
               placeholder="Senha"
             />
             <button
+              data-testid="submit-btn"
               type="submit"
               disabled={ this.saveButtonHandler() }
               onClick={ fetchCurrecy }

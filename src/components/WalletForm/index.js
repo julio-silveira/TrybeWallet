@@ -115,6 +115,7 @@ class WalletForm extends Component {
           </label>
 
           <button
+            data-testid="submit-btn"
             type="submit"
           >
             Adicionar Despesa
