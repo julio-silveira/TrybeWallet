@@ -6,6 +6,10 @@ const addExpense = (payload) => ({ type: 'ADD_EXPENSE', payload });
 
 const deleteExpense = (idToDelete) => ({ type: 'DEL_EXPENSE', idToDelete });
 
+const startEdit = (idToEdit) => ({ type: 'START_EDIT_EXPENSE', idToEdit });
+
+const finishEdit = (payload) => ({ type: 'FINISH_EDIT_EXPENSE', payload });
+
 function getCurrency(payload) {
   return { type: 'GET_CURRENCY', payload };
 }
@@ -30,4 +34,4 @@ function fetchCurrecy(expenseData) {
   };
 }
 
-export { addUser, addExpense, fetchCurrecy, deleteExpense };
+export { addUser, addExpense, fetchCurrecy, deleteExpense, startEdit, finishEdit };
