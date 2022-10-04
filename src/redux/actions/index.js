@@ -4,6 +4,8 @@ const addUser = (value) => ({ type: 'ADD_USER', value });
 
 const addExpense = (payload) => ({ type: 'ADD_EXPENSE', payload });
 
+const deleteExpense = (idToDelete) => ({ type: 'DEL_EXPENSE', idToDelete });
+
 function getCurrency(payload) {
   return { type: 'GET_CURRENCY', payload };
 }
@@ -28,4 +30,4 @@ function fetchCurrecy(expenseData) {
   };
 }
 
-export { addUser, addExpense, fetchCurrecy };
+export { addUser, addExpense, fetchCurrecy, deleteExpense };

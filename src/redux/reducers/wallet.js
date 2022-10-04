@@ -2,6 +2,8 @@
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  editor: false,
+  idToEdit: '',
 };
 
 function wallet(state = INITIAL_STATE, action) {
@@ -15,6 +17,10 @@ function wallet(state = INITIAL_STATE, action) {
       ...state,
       expenses: [...state.expenses, action.payload],
     };
+  case 'DEL_EXPENSE': {
+    const updatedExpenses = state.expenses
+      .filter((expense) => expense.id !== action.idToDelete);
+    return { ...state, expenses: updatedExpenses }; }
   default:
     return state;
   }

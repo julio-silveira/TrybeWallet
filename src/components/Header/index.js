@@ -13,7 +13,17 @@ class Header extends Component {
 
   updateTotalExpenses() {
     const { expenses } = this.props;
-    return (expenses.length === 0.00) ? 0 : Math.floor(expenses
+    const value = this.expenseReducer(expenses);
+    return new Intl.NumberFormat('en-EN', {
+      style: 'currency',
+      currency: 'USD',
+    })
+      .format(value)
+      .replace('$', '');
+  }
+
+  expenseReducer(expenses) {
+    return (expenses.length === 0) ? 0 : Math.floor(expenses
       .reduce((acc, { value, exchangeRates, currency }) => {
         const price = Object.values(exchangeRates)
           .filter(({ code }) => code === currency);

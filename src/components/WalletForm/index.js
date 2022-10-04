@@ -6,6 +6,7 @@ import { fetchCurrecy } from '../../redux/actions';
 
 class WalletForm extends Component {
   state = {
+    id: 0,
     value: '',
     description: '',
     currency: 'USD',
@@ -26,15 +27,16 @@ class WalletForm extends Component {
 
   saveButtonHandler = (event) => {
     event.preventDefault();
-    const { expenses, createExpense } = this.props;
-    const data = { id: expenses.length, ...this.state };
+    const { createExpense } = this.props;
+    const data = this.state;
     createExpense(data);
-    this.setState({
+    this.setState((prevState) => ({
+      id: prevState.id + 1,
       value: '',
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: 'Alimentação' });
+      tag: 'Alimentação' }));
   };
 
   render() {
@@ -130,12 +132,10 @@ WalletForm.propTypes = {
   currencies: PropTypes.func.isRequired,
   createExpense: PropTypes.func.isRequired,
   currencyOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currencyOptions: state.wallet.currencies,
-  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
