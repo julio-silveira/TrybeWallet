@@ -1,17 +1,19 @@
+import { Box } from '@mui/material';
 import React from 'react';
 
 import Header from '../../components/Header';
-import Table from '../../components/Table';
+import ExpensesTable from '../../components/ExpensesTable';
 import WalletForm from '../../components/WalletForm';
+import CustomWalletContainer from './styles';
 
 class Wallet extends React.Component {
   render() {
     return (
-      <div>
+      <CustomWalletContainer>
         <Header />
         <WalletForm />
-        <Table />
-      </div>
+        <ExpensesTable />
+      </CustomWalletContainer>
     );
   }
 }

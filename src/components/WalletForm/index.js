@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
+import { Button, Box } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
 import { fetchCurrecy, finishEdit } from '../../redux/actions';
 
-const Alimentação = 'Alimentação';
+import { CustomFormContainer, CustomFormBox } from './styles';
+
+const metodos = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 class WalletForm extends Component {
   state = {
     id: 0,
     value: '',
     description: '',
-    currency: 'USD',
-    method: 'Dinheiro',
-    tag: Alimentação,
+    currency: '',
+    method: '',
+    tag: '',
     renderLock: false,
   };
 
@@ -28,9 +33,9 @@ class WalletForm extends Component {
     this.editSetup(editor, renderLock);
   }
 
-  onInputChange = ({ target: { id, value } }) => {
+  onInputChange = ({ target: { name, value } }) => {
     this.setState({
-      [id]: value,
+      [name]: value,
     });
   };
 
@@ -55,9 +60,7 @@ class WalletForm extends Component {
       id: prevState.id + 1,
       value: '',
       description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: Alimentação }));
+    }));
   }
 
   editExpense() {
@@ -68,9 +71,6 @@ class WalletForm extends Component {
     this.setState({
       value: '',
       description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: Alimentação,
       renderLock: false,
     });
   }
@@ -104,87 +104,108 @@ class WalletForm extends Component {
     } = this.state;
     const { currencyOptions, editor } = this.props;
     return (
-      <section>
+      <CustomFormContainer elevation={ 5 }>
         <form onSubmit={ this.submitHandler }>
-          <label htmlFor="inputValue">
-            <input
-              type="number"
-              data-testid="value-input"
-              id="value"
-              onChange={ this.onInputChange }
-              value={ value }
-              placeholder="Preço"
-            />
-          </label>
-          <label htmlFor="description">
-            <input
+          <CustomFormBox spacing={ 2 } direction="row">
+            <TextField
               type="text"
               data-testid="description-input"
               id="description"
+              name="description"
               onChange={ this.onInputChange }
               value={ description }
               placeholder="Descrição"
+              size="small"
             />
-          </label>
-          <label htmlFor="currency">
-            <select
+            <TextField
               data-testid="currency-input"
               id="currency"
+              name="currency"
+              label="Moeda"
+              select
               onChange={ this.onInputChange }
               value={ currency }
+              helperText="Escolha a moeda"
+              size="small"
             >
               {currencyOptions.map((curr) => (
-                <option
+                <MenuItem
                   key={ curr }
+                  value={ curr }
                 >
                   { curr }
-                </option>
+                </MenuItem>
               ))}
-            </select>
-          </label>
-          <label htmlFor="method">
-            <select
-              data-testid="method-input"
-              id="method"
+            </TextField>
+            <TextField
+              type="number"
+              data-testid="value-input"
+              id="value"
+              name="value"
               onChange={ this.onInputChange }
-              value={ method }
-            >
-              <option>Dinheiro</option>
-              <option>Cartão de crédito</option>
-              <option>Cartão de débito</option>
-            </select>
-          </label>
-          <label htmlFor="tag">
-            <select
+              value={ value }
+              placeholder="Preço"
+              size="small"
+            />
+
+            <TextField
               data-testid="tag-input"
               id="tag"
+              name="tag"
+              label="Tipo"
+              select
               onChange={ this.onInputChange }
               value={ tag }
+              helperText="Escolha o tipo da despesa"
+              size="small"
             >
-              <option>Alimentação</option>
-              <option>Lazer</option>
-              <option>Trabalho</option>
-              <option>Transporte</option>
-              <option>Saúde</option>
-            </select>
-          </label>
+              {tags.map((uniquetag) => (
+                <MenuItem key={ uniquetag } value={ uniquetag }>{ uniquetag }</MenuItem>
+              ))}
+            </TextField>
 
-          {editor ? (
-            <button
-              data-testid="edit-btn"
-              type="submit"
+            <TextField
+              data-testid="method-input"
+              id="method"
+              name="method"
+              select
+              label="Metodo"
+              onChange={ this.onInputChange }
+              value={ method }
+              helperText="Escolha o método de pagamento"
+              size="small"
             >
-              Editar despesa
-            </button>
-          ) : (
-            <button
-              data-testid="submit-btn"
-              type="submit"
-            >
-              Adicionar despesa
-            </button>)}
+              {metodos.map((metodo) => (
+                <MenuItem key={ metodo } value={ metodo }>{ metodo }</MenuItem>
+              ))}
+            </TextField>
+          </CustomFormBox>
+
+          <CustomFormBox>
+            {editor ? (
+              <Button
+                variant="contained"
+                data-testid="edit-btn"
+                type="submit"
+                color="secondary"
+                size="small"
+              >
+                Editar despesa
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                data-testid="submit-btn"
+                type="submit"
+                color="secondary"
+                size="small"
+              >
+                Adicionar despesa
+
+              </Button>)}
+          </CustomFormBox>
         </form>
-      </section>
+      </CustomFormContainer>
     );
   }
 }

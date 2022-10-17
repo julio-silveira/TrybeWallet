@@ -6,6 +6,11 @@
     "node": "16"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mui/icons-material": "^5.10.9",
+    "@mui/material": "^5.10.9",
+    "@mui/styled-engine-sc": "^5.10.6",
     "@redux-devtools/extension": "3.2.2",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "13.3.0",
@@ -18,6 +23,7 @@
     "react-scripts": "5.0.1",
     "redux": "4.2.0",
     "redux-thunk": "2.4.1",
+    "styled-components": "^5.3.6",
     "stylelint-order": "5.0.0"
   },
   "scripts": {

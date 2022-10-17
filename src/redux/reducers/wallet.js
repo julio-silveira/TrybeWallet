@@ -18,6 +18,7 @@ function wallet(state = INITIAL_STATE, action) {
       expenses: [...state.expenses, action.payload],
     };
   case 'DEL_EXPENSE': {
+    console.log(action);
     const updatedExpenses = state.expenses
       .filter((expense) => expense.id !== action.idToDelete);
     return { ...state, expenses: updatedExpenses }; }

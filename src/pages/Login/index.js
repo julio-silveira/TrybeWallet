@@ -1,8 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Button, TextField } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
 
 import { addUser, fetchCurrecy } from '../../redux/actions';
+import logoTrybeWallet from '../../images/logoTrybeWallet.svg';
+import { CustomLogin, CustomForm, CustomStack } from './styles';
 
 class Login extends React.Component {
   state = {
@@ -38,39 +42,50 @@ class Login extends React.Component {
     const { email, password } = this.state;
 
     return (
-      <section>
-        <form onSubmit={ this.onSubmitForm }>
-          <label htmlFor="email">
-            <input
+      <CustomLogin>
+        <CustomForm
+          onSubmit={ this.onSubmitForm }
+          elevation={ 5 }
+          component="form"
+        >
+          <CustomStack spacing={ 1 }>
+            <img src={ logoTrybeWallet } alt="logo" />
+            <TextField
               data-testid="email-input"
               id="email"
               value={ email }
               onChange={ this.onInputChange }
               type="email"
-              placeholder="Email"
+              label="Email"
+              variant="outlined"
+              size="small"
+              fullWidth
             />
-          </label>
-
-          <label htmlFor="password">
-            <input
+            <TextField
               data-testid="password-input"
               id="password"
               value={ password }
               onChange={ this.onInputChange }
               type="password"
-              placeholder="Senha"
+              label="Senha"
+              variant="outlined"
+              size="small"
+              fullWidth
             />
-            <button
+            <Button
               data-testid="submit-btn"
               type="submit"
               disabled={ this.saveButtonHandler() }
               onClick={ fetchCurrecy }
+              variant="contained"
+              endIcon={ <SendIcon /> }
+              fullWidth
             >
               Entrar
-            </button>
-          </label>
-        </form>
-      </section>
+            </Button>
+          </CustomStack>
+        </CustomForm>
+      </CustomLogin>
     );
   }
 }

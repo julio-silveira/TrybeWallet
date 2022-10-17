@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { AppBar, Container, Stack, Toolbar, Typography } from '@mui/material';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import logoTrybeWallet from '../../images/logoTrybeWallet.svg';
 
 class Header extends Component {
   componentDidMount() {
@@ -34,23 +38,51 @@ class Header extends Component {
   render() {
     const { email } = this.props;
     return (
-      <header>
-        <p
-          data-testid="email-field"
-        >
-          { email }
-        </p>
-        <p
-          data-testid="header-currency-field"
-        >
-          BRL
-        </p>
-        <p
-          data-testid="total-field"
-        >
-          {this.updateTotalExpenses()}
-        </p>
-      </header>
+      <AppBar
+        position="static"
+        color="inherit"
+        sx={ {
+          width: '80%',
+          height: '10%',
+          justifyContent: 'center' } }
+      >
+        <Container maxWidth="xl">
+          <Toolbar
+            disableGutters
+            sx={ {
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center' } }
+          >
+            <img src={ logoTrybeWallet } alt="logo" />
+
+            <Stack spacing={ 1 } direction="row">
+              <AccountBalanceWalletIcon
+                sx={ { display: { xs: 'none', md: 'flex' } } }
+                color="secondary"
+              />
+              <Typography variant="h5">
+                Total de Despesas:
+              </Typography>
+              <Typography variant="h6" data-testid="header-currency-field">
+                BRL
+              </Typography>
+              <Typography variant="h6" data-testid="total-field">
+                {this.updateTotalExpenses()}
+              </Typography>
+            </Stack>
+            <Stack spacing={ 1 } direction="row">
+              <AccountCircleIcon
+                sx={ { display: { xs: 'none', md: 'flex' } } }
+                color="secondary"
+              />
+              <Typography variant="h6" data-testid="email-field">
+                { email }
+              </Typography>
+            </Stack>
+          </Toolbar>
+        </Container>
+      </AppBar>
     );
   }
 }
