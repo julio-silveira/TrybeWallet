@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -44,6 +45,23 @@ class WalletForm extends Component {
     const { createExpense, editor } = this.props;
     if (editor) this.editExpense();
     else this.saveExpense(createExpense);
+  };
+
+  disableAddButton = () => {
+    const {
+      value,
+      description,
+      currency,
+      method,
+      tag } = this.state;
+
+    return (
+      value === ''
+        || description === ''
+        || currency === ''
+        || method === ''
+        || tag === ''
+    );
   };
 
   findExpense = () => {
@@ -106,7 +124,7 @@ class WalletForm extends Component {
     return (
       <CustomFormContainer elevation={ 5 }>
         <form onSubmit={ this.submitHandler }>
-          <CustomFormBox spacing={ 2 } direction="row">
+          <CustomFormBox spacing={ 2 } direction={ { xs: 'column', md: 'row' } }>
             <TextField
               type="text"
               data-testid="description-input"
@@ -189,6 +207,8 @@ class WalletForm extends Component {
                 type="submit"
                 color="secondary"
                 size="small"
+                sx={ { color: 'white' } }
+                disabled={ this.disableAddButton() }
               >
                 Editar despesa
               </Button>
@@ -199,6 +219,8 @@ class WalletForm extends Component {
                 type="submit"
                 color="secondary"
                 size="small"
+                sx={ { color: 'white' } }
+                disabled={ this.disableAddButton() }
               >
                 Adicionar despesa
 

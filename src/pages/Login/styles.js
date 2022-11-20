@@ -18,8 +18,7 @@ export const CustomForm = styled(Paper)`
   justify-content: center;
   align-items: center;
   background-color: white;
-  width: 30%;
-  height: 40%;
+  padding: 40px 20px;
   `;
 
 export const CustomStack = styled(Stack)`

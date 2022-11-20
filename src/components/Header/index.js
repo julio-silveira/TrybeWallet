@@ -29,9 +29,9 @@ class Header extends Component {
   expenseReducer(expenses) {
     return (expenses.length === 0) ? 0 : Math.floor(expenses
       .reduce((acc, { value, exchangeRates, currency }) => {
-        const price = Object.values(exchangeRates)
-          .filter(({ code }) => code === currency);
-        return acc + parseFloat(price[0].ask) * value;
+        const getPrice = Object.values(exchangeRates)
+          .filter(({ code }) => code === currency)[0].ask;
+        return acc + parseFloat(getPrice) * value;
       }, 0) * 100) / 100;
   }
 
@@ -51,32 +51,37 @@ class Header extends Component {
             disableGutters
             sx={ {
               display: 'flex',
+              flexDirection: { xs: 'column', md: 'row' },
               justifyContent: 'space-between',
               alignItems: 'center' } }
           >
             <img src={ logoTrybeWallet } alt="logo" />
 
-            <Stack spacing={ 1 } direction="row">
+            <Stack spacing={ 1 } direction="row" py={ 1.5 }>
               <AccountBalanceWalletIcon
-                sx={ { display: { xs: 'none', md: 'flex' } } }
                 color="secondary"
               />
-              <Typography variant="h5">
-                Total de Despesas:
-              </Typography>
-              <Typography variant="h6" data-testid="header-currency-field">
-                BRL
-              </Typography>
-              <Typography variant="h6" data-testid="total-field">
-                {this.updateTotalExpenses()}
+              <Typography
+                sx={ { fontSize: { xs: '0.9rem', md: '1rem' } } }
+                variant="h6"
+                data-testid="total-field"
+              >
+                {`Total de Despesas: BRL ${this.updateTotalExpenses()}`}
               </Typography>
             </Stack>
-            <Stack spacing={ 1 } direction="row">
+            <Stack
+              spacing={ 1 }
+              direction="row"
+              pb={ 1.5 }
+            >
               <AccountCircleIcon
-                sx={ { display: { xs: 'none', md: 'flex' } } }
                 color="secondary"
               />
-              <Typography variant="h6" data-testid="email-field">
+              <Typography
+                sx={ { fontSize: { xs: '0.9rem', md: '1.1rem' } } }
+                variant="h6"
+                data-testid="email-field"
+              >
                 { email }
               </Typography>
             </Stack>
