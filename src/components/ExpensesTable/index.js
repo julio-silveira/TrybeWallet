@@ -14,6 +14,18 @@ import { Button } from '@mui/material';
 import { deleteExpense, startEdit } from '../../redux/actions';
 import { CustomTableCell, CustomTableCellHeader } from './styles';
 
+const TABLE_LABELS = [
+  'Descrição',
+  'Tag',
+  'Método de pagamento',
+  'Valor',
+  'Moeda',
+  'Câmbio utilizado',
+  'Valor convertido',
+  'Moeda de conversão',
+  'Editar/Excluir',
+];
+
 class ExpensesTable extends Component {
   updateExpenses = () => {
     const { expenses } = this.props;
@@ -67,7 +79,7 @@ class ExpensesTable extends Component {
     return (
       <TableContainer
         component={ Paper }
-        sx={ { background: '#003BE5', width: '90%', marginTop: '10px' } }
+        sx={ { background: '#003BE5', width: '90%', margin: '10px 0' } }
         onClick={ (e) => e.stopPropagation() }
       >
         <Table
@@ -77,15 +89,9 @@ class ExpensesTable extends Component {
         >
           <TableHead>
             <TableRow>
-              <CustomTableCellHeader>Descrição</CustomTableCellHeader>
-              <CustomTableCellHeader>Tag</CustomTableCellHeader>
-              <CustomTableCellHeader>Método de pagamento</CustomTableCellHeader>
-              <CustomTableCellHeader>Valor</CustomTableCellHeader>
-              <CustomTableCellHeader>Moeda</CustomTableCellHeader>
-              <CustomTableCellHeader>Câmbio utilizado</CustomTableCellHeader>
-              <CustomTableCellHeader>Valor convertido</CustomTableCellHeader>
-              <CustomTableCellHeader>Moeda de conversão</CustomTableCellHeader>
-              <CustomTableCellHeader>Editar/Excluir</CustomTableCellHeader>
+              {TABLE_LABELS.map((label) => (
+                <CustomTableCellHeader key={ label }>{label}</CustomTableCellHeader>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody>
