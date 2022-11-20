@@ -12,7 +12,7 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
 
 Este projeto foi desenvolvido durante o curso da Trybe no módulo de Front End.
 
-### Veja o projeto no ar: https://trybewallet-pied.vercel.app/
+### Veja o projeto em produção: https://trybewallet-pied.vercel.app/
 
 #### Página de Login (Desktop)
 ![alt text](./preview/loginpage.gif)
