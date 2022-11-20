@@ -14,6 +14,15 @@ Este projeto foi desenvolvido durante o curso da Trybe no módulo de Front End.
 
 ### Veja o projeto no ar: https://trybewallet-pied.vercel.app/
 
+#### Página de Login (Desktop)
+![alt text](./preview/loginpage.gif)
+
+#### Adicionando, editando e excluindo despesas (Desktop)
+![alt text](./preview/editanddelete.gif)
+
+#### Versão Mobile
+![alt text](./preview/mobile.gif)
+
 
 ## 🎯Objetivo
 
